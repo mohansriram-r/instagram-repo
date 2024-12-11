@@ -16,10 +16,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _bio = TextEditingController();
 
-  showSnackBar(String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
-  }
-
   @override
   void dispose() {
     super.dispose();
