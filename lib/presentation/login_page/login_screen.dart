@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/presentation/custom_widget/text_field.dart';
+import 'package:instagram_clone/service/auth_service.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/constants/icon_strings.dart';
+import 'package:instagram_clone/utils/helper/helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,14 +14,35 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final Helper _helper = Helper();
+  bool _isLoading = false;
 
   @override
   void dispose() {
     super.dispose();
-    _userNameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthService().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+
+    if (res == 'sucess') {
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      _helper.showSnackBar(context, res);
+    }
   }
 
   @override
@@ -36,8 +59,8 @@ class _LoginPageState extends State<LoginPage> {
               _logo(context),
               const SizedBox(height: 30),
               CTextField(
-                controller: _userNameController,
-                text: "Username",
+                controller: _emailController,
+                text: "Email",
               ),
               const SizedBox(height: 10),
               CTextField(
@@ -80,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginButton(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: loginUser,
       child: Container(
         height: 50,
         width: double.infinity,
@@ -89,10 +112,14 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
-          child: Text(
-            "Login",
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          child: _isLoading
+              ? const CircularProgressIndicator(
+                  color: Colors.white,
+                )
+              : Text(
+                  "Login",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
         ),
       ),
     );

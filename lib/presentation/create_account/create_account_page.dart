@@ -20,6 +20,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   Uint8List? _image;
+  bool _isLoading = false;
   final Helper _helper = Helper();
 
   @override
@@ -32,15 +33,23 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   signUp() async {
-    var res = await AuthService().signUpUser(
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthService().signUpUser(
       email: _emailController.text,
       password: _passwordController.text,
       username: _userNameController.text,
       bio: _bioController.text,
       file: _image!,
     );
+    setState(() {
+      _isLoading = false;
+    });
 
-    print(res);
+    if (res != 'sucess') {
+      _helper.showSnackBar(context, res);
+    }
   }
 
   selectImage() async {
@@ -109,10 +118,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
-          child: Text(
-            "Login",
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          child: _isLoading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : Text(
+                  "Login",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
         ),
       ),
     );
