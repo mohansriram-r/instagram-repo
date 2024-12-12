@@ -12,14 +12,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _userName = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _userName.dispose();
-    _password.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -32,56 +32,22 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
-                flex: 1,
-                child: Container(),
-              ),
-              SvgPicture.asset(
-                CIconStrings.instagarmLogo,
-                width: 200,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
+              Flexible(flex: 1, child: Container()),
+              _logo(context),
+              const SizedBox(height: 30),
               CTextField(
-                controller: _userName,
+                controller: _userNameController,
                 text: "Username",
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               CTextField(
-                controller: _password,
+                controller: _passwordController,
                 text: "Password",
                 ispass: true,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: CColors.blueColor,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Login",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                child: Container(),
-              ),
+              const SizedBox(height: 20),
+              _loginButton(context),
+              Flexible(flex: 1, child: Container()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -89,23 +55,55 @@ class _LoginPageState extends State<LoginPage> {
                     "Don't have a account?",
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    child: Text(
-                      "SignUp",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  )
+                  const SizedBox(width: 10),
+                  _signUpTextButton(context),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              )
+              const SizedBox(height: 20)
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _logo(BuildContext context) {
+    return SvgPicture.asset(
+      CIconStrings.instagarmLogo,
+      width: 200,
+      colorFilter: const ColorFilter.mode(
+        Colors.white,
+        BlendMode.srcIn,
+      ),
+    );
+  }
+
+  Widget _loginButton(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: CColors.blueColor,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Center(
+          child: Text(
+            "Login",
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _signUpTextButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Text(
+        "SignUp",
+        style: Theme.of(context).textTheme.labelMedium,
       ),
     );
   }

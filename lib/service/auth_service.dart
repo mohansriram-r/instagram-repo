@@ -16,23 +16,32 @@ class AuthService {
   }) async {
     String res = '';
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      if (email.isNotEmpty ||
+          password.isNotEmpty ||
+          username.isNotEmpty ||
+          bio.isNotEmpty ||
+          file != null) {
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'email': email,
-        'username': username,
-        'following': [],
-        'followers': [],
-        'photourl': file,
-      });
-
-      return res = "sucess";
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'uid': userCredential.user!.uid,
+          'email': email,
+          'username': username,
+          'following': [],
+          'followers': [],
+        });
+        res = 'sucess';
+        print(res);
+      }
     } catch (e) {
-      return res = e.toString();
+      res = e.toString();
+      print(res);
     }
+
+    return res;
   }
 }
