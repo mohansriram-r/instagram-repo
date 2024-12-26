@@ -3,18 +3,19 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/presentation/custom_widget/text_field.dart';
+import 'package:instagram_clone/presentation/home_page/home_page.dart';
 import 'package:instagram_clone/service/auth_service.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/helper/helper.dart';
 
-class CreateAccountPage extends StatefulWidget {
-  const CreateAccountPage({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<CreateAccountPage> createState() => _CreateAccountPageState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _CreateAccountPageState extends State<CreateAccountPage> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -49,6 +50,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
     if (res != 'sucess') {
       _helper.showSnackBar(context, res);
+    } else {
+      _helper.navigatorPushReplacement(context, const HomePage());
     }
   }
 

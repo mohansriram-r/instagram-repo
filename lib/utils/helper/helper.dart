@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,6 +16,24 @@ class Helper {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(text),
+      ),
+    );
+  }
+
+  navigatorPush(BuildContext context, Widget route) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => route,
+      ),
+    );
+  }
+
+  navigatorPushReplacement(BuildContext context, Widget route) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => route,
       ),
     );
   }

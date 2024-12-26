@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/presentation/signup_page/signup_screen.dart';
 import 'package:instagram_clone/presentation/custom_widget/text_field.dart';
 import 'package:instagram_clone/service/auth_service.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/constants/icon_strings.dart';
 import 'package:instagram_clone/utils/helper/helper.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final Helper _helper = Helper();
@@ -24,6 +25,10 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  signUpPage() {
+    _helper.navigatorPush(context, const SignUpScreen());
   }
 
   loginUser() async {
@@ -127,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _signUpTextButton(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: signUpPage,
       child: Text(
         "SignUp",
         style: Theme.of(context).textTheme.labelMedium,
