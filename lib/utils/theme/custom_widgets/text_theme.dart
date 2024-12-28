@@ -11,23 +11,43 @@ class CTextTheme {
       color: CColors.primaryColor,
     ),
     headlineMedium: const TextStyle().copyWith(
+      fontSize: 30,
+      fontWeight: FontWeight.w600,
+      color: CColors.primaryColor,
+    ),
+    headlineSmall: const TextStyle().copyWith(
+      fontSize: 30,
+      fontWeight: FontWeight.normal,
+      color: CColors.primaryColor,
+    ),
+    bodyLarge: const TextStyle().copyWith(
       fontSize: 22,
       fontWeight: FontWeight.bold,
       color: CColors.primaryColor,
     ),
-    headlineSmall: const TextStyle().copyWith(
-      fontSize: 17,
-      fontWeight: FontWeight.normal,
+    bodyMedium: const TextStyle().copyWith(
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
       color: CColors.primaryColor,
     ),
-    labelSmall: const TextStyle().copyWith(
-      fontSize: 16,
-      fontWeight: FontWeight.normal,
+    bodySmall: const TextStyle().copyWith(
+      fontSize: 22,
+      fontWeight: FontWeight.bold,
+      color: CColors.primaryColor,
+    ),
+    labelLarge: const TextStyle().copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
       color: CColors.primaryColor,
     ),
     labelMedium: const TextStyle().copyWith(
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
+      color: CColors.primaryColor,
+    ),
+    labelSmall: const TextStyle().copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.normal,
       color: CColors.primaryColor,
     ),
   );

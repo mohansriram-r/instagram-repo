@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/presentation/custom_widget/text_field.dart';
-import 'package:instagram_clone/presentation/home_page/home_page.dart';
+import 'package:instagram_clone/presentation/home_page/home_screen.dart';
 import 'package:instagram_clone/service/auth_service.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/helper/helper.dart';
@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (res != 'sucess') {
       _helper.showSnackBar(context, res);
     } else {
-      _helper.navigatorPushReplacement(context, const HomePage());
+      _helper.navigatorPushReplacement(context, const HomeScreen());
     }
   }
 

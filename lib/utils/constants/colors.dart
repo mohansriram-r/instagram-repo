@@ -7,5 +7,5 @@ class CColors {
   static Color mobileSearchColor = const Color.fromRGBO(38, 38, 38, 1);
   static Color blueColor = const Color.fromRGBO(0, 149, 246, 1);
   static Color primaryColor = Colors.white;
-  static Color secondaryColor = Colors.grey;
+  static Color secondaryColor = const Color.fromARGB(108, 158, 158, 158);
 }
