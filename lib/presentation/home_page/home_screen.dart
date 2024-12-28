@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/models/user_model.dart';
-import 'package:instagram_clone/providers/user_providers.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/constants/global_variavle.dart';
-import 'package:instagram_clone/utils/theme/theme.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   int _page = 0;
+
 
   navigationPage(int page) {
     _pageController.jumpToPage(page);
@@ -30,26 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-    _pageController;
+    _pageController.dispose();
   }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   addData();
-  // }
-
-  // addData() async {
-  //   UserProviders userProviders = Provider.of(context, listen: false);
-  //   await userProviders.refreshUser();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // UserM? user = Provider.of<UserProviders>(context).getUser;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: CThemeData.darkThemeData,
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: CColors.mobileBackgroundColor,
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
@@ -83,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
           onTap: navigationPage,
         ),
-      ),
     );
   }
 }

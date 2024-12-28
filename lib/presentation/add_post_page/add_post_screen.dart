@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/app.dart';
+import 'package:instagram_clone/models/user_model.dart';
+import 'package:instagram_clone/service/auth_service.dart';
+import 'package:instagram_clone/service/firestore_service.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/helper/helper.dart';
 
@@ -14,8 +16,40 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
+  late UserM user;
   final Helper _helper = Helper();
   final TextEditingController _captionController = TextEditingController();
+
+  getUser() async {
+    user = await AuthService().getCurrentUserData();
+  }
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  void postImage(
+    String uid,
+    String username,
+    String profImage,
+  ) async {
+    try {
+      String res = await FirestoreService().uploadPost(
+        _file!,
+        username,
+        _captionController.text,
+        uid,
+      );
+
+      if (res == 'success') {
+        _helper.showSnackBar(context, "Posted!");
+      } else {
+        _helper.showSnackBar(context, "NotPosted!");
+      }
+    } catch (e) {}
+  }
 
   void _selectImage(BuildContext context) async {
     return showDialog(
@@ -54,11 +88,30 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 "Gallery",
                 style: Theme.of(context).textTheme.labelSmall,
               ),
+            ),
+            SimpleDialogOption(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                setState(() {
+                  _file = null;
+                });
+              },
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                "Cancle",
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
             )
           ],
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _captionController.dispose();
+    super.dispose();
   }
 
   @override
@@ -71,7 +124,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              postImage(user.uid, user.userName, user.photoUrl);
+            },
             child: Text(
               "Post",
               style: Theme.of(context)
