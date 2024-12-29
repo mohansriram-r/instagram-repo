@@ -8,13 +8,13 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<UserM> getCurrentUserData() async {
+  Future<UserModel> getCurrentUserData() async {
     User currentUser = _auth.currentUser!;
 
     DocumentSnapshot snapshot =
         await _firestore.collection('users').doc(currentUser.uid).get();
 
-    return UserM.fromSnap(snapshot);
+    return UserModel.fromSnap(snapshot);
   }
 
   Future<String> signUpUser({
@@ -41,7 +41,7 @@ class AuthService {
         String photoUrl = await StorageService()
             .uploadImageToStorage('profilePic', file, false);
 
-        UserM user = UserM(
+        UserModel user = UserModel(
           email: email,
           uid: userCredential.user!.uid,
           photoUrl: photoUrl,

@@ -7,6 +7,7 @@ class PostModel {
   final DateTime publishedDate;
   final String postId;
   final String postUrl;
+  final String profUrl;
   final List likes;
 
   PostModel({
@@ -16,6 +17,7 @@ class PostModel {
     required this.publishedDate,
     required this.postId,
     required this.postUrl,
+    required this.profUrl,
     required this.likes,
   });
 
@@ -25,6 +27,7 @@ class PostModel {
         'publisheddate': publishedDate,
         'username': username,
         'postId' : postId,
+        'profUrl' : profUrl,
         'posturl' : postUrl,
         'likes': likes,
       };
@@ -38,6 +41,7 @@ class PostModel {
       postUrl: snapShot['posturl'],
       publishedDate: snapShot['pusblisheddate'],
       postId: snapShot['postId'],
+      profUrl: snapShot['profUrl'],
       username: snapShot["username"],
       likes: snapShot["likes"],
     );

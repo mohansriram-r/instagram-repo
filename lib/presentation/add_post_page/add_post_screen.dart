@@ -16,7 +16,8 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
-  late UserM user;
+  bool _isLoading = false;
+  late UserModel user;
   final Helper _helper = Helper();
   final TextEditingController _captionController = TextEditingController();
 
@@ -30,21 +31,37 @@ class _AddPostScreenState extends State<AddPostScreen> {
     super.initState();
   }
 
+  void _resetScreen() {
+    setState(() {
+      _captionController.clear();
+      _isLoading = false;
+      _file = null;
+    });
+  }
+
   void postImage(
     String uid,
     String username,
     String profImage,
   ) async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
       String res = await FirestoreService().uploadPost(
         _file!,
         username,
+        profImage,
         _captionController.text,
         uid,
       );
 
       if (res == 'success') {
+        setState(() {
+          _isLoading = false;
+        });
         _helper.showSnackBar(context, "Posted!");
+        _resetScreen();
       } else {
         _helper.showSnackBar(context, "NotPosted!");
       }
@@ -142,6 +159,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             children: [
+              _isLoading ? const LinearProgressIndicator() : Container(),
               const SizedBox(
                 height: 20,
               ),
@@ -171,6 +189,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 height: 40,
               ),
               TextField(
+                controller: _captionController,
                 decoration: InputDecoration(
                   hintText: 'Write a caption',
                   counterText: '',

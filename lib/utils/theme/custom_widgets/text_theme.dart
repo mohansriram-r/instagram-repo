@@ -32,7 +32,7 @@ class CTextTheme {
     ),
     bodySmall: const TextStyle().copyWith(
       fontSize: 22,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
       color: CColors.primaryColor,
     ),
     labelLarge: const TextStyle().copyWith(

@@ -12,6 +12,7 @@ class FirestoreService {
   Future<String> uploadPost(
     Uint8List file,
     String username,
+    String profileUrl,
     String caption,
     String uid,
   ) async {
@@ -30,6 +31,7 @@ class FirestoreService {
         publishedDate: DateTime.now(),
         postId: postId,
         postUrl: photoUrl,
+        profUrl: profileUrl,
         likes: [],
       );
 
