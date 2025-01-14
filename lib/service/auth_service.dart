@@ -54,7 +54,7 @@ class AuthService {
         await _firestore
             .collection('users')
             .doc(userCredential.user!.uid)
-            .set(user.toJson());
+            .set(user.toMap());
 
         res = 'sucess';
       }

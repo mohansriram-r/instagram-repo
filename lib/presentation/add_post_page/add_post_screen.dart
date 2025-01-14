@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/service/auth_service.dart';
 import 'package:instagram_clone/service/firestore_service.dart';
+import 'package:instagram_clone/service_loactor.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/helper/helper.dart';
 
@@ -48,7 +49,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       setState(() {
         _isLoading = true;
       });
-      String res = await FirestoreService().uploadPost(
+      String res = await sl<FirestoreService>().uploadPost(
         _file!,
         username,
         profImage,

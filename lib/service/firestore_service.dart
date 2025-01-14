@@ -5,10 +5,23 @@ import 'package:instagram_clone/models/post_model.dart';
 import 'package:instagram_clone/service/storage_service.dart';
 import 'package:uuid/uuid.dart';
 
-class FirestoreService {
+abstract class FirestoreService {
+  Future<String> uploadPost(
+    Uint8List file,
+    String username,
+    String profileUrl,
+    String caption,
+    String uid,
+  );
+
+  Future<void> likePost(String postId, String uid, List likes);
+}
+
+class FireStoreImplementation extends FirestoreService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final StorageService _storageService = StorageService();
 
+  @override
   Future<String> uploadPost(
     Uint8List file,
     String username,
@@ -46,5 +59,26 @@ class FirestoreService {
     }
 
     return res;
+  }
+
+  @override
+  Future<void> likePost(String postId, String uid, List likes) async {
+    try {
+      if (likes.contains(uid)) {
+        await _firebaseFirestore.collection("post").doc(postId).update(
+          {
+            "likes": FieldValue.arrayRemove([uid])
+          },
+        );
+      } else {
+        await _firebaseFirestore.collection("post").doc(postId).update(
+          {
+            "likes": FieldValue.arrayUnion([uid])
+          },
+        );
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

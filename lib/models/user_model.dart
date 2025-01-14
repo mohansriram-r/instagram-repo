@@ -19,7 +19,7 @@ class UserModel {
     required this.following,
   });
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         'uid': uid,
         'email': email,
         'bio': bio,

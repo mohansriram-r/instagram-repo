@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/presentation/signup_page/signup_screen.dart';
-import 'package:instagram_clone/presentation/custom_widget/text_field.dart';
+import 'package:instagram_clone/presentation/common_widgets/text_field.dart';
 import 'package:instagram_clone/service/auth_service.dart';
 import 'package:instagram_clone/utils/constants/colors.dart';
 import 'package:instagram_clone/utils/constants/icon_strings.dart';
