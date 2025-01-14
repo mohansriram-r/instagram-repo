@@ -54,9 +54,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAXiwxw3UMUcG1vrKjknv3p-vmSRuFpTPk',
-    appId: '1:715278276018:android:b1916aa99f4d90e68380ab',
+    appId: '1:715278276018:android:fd9a2fc0e38618a28380ab',
     messagingSenderId: '715278276018',
     projectId: 'instagram-clone-68b8d',
     storageBucket: 'instagram-clone-68b8d.firebasestorage.app',
   );
+
 }

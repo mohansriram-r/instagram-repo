@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/presentation/comments_page/comments_screen.dart';
 import 'package:instagram_clone/presentation/common_widgets/like_animation.dart';
 import 'package:instagram_clone/service/firestore_service.dart';
 import 'package:instagram_clone/service_loactor.dart';
+import 'package:instagram_clone/utils/helper/helper.dart';
 import 'package:intl/intl.dart';
 
 class PostCard extends StatefulWidget {
@@ -127,7 +129,9 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  sl<Helper>().navigatorPush(context, const CommentsScreen());
+                },
                 icon: const Icon(Icons.comment_outlined),
                 iconSize: 35,
               ),

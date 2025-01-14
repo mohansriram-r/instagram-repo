@@ -57,6 +57,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
         uid,
       );
 
+      print("res");
+
       if (res == 'success') {
         setState(() {
           _isLoading = false;
