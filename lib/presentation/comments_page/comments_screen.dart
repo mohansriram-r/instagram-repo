@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/presentation/comments_page/custom_widgets/comments_card.dart';
-import 'package:instagram_clone/presentation/common_widgets/text_field.dart';
 import 'package:instagram_clone/provider/user_provider.dart';
 import 'package:instagram_clone/service/firestore_service.dart';
 import 'package:instagram_clone/service_loactor.dart';
