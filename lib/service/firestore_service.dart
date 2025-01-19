@@ -14,7 +14,18 @@ abstract class FirestoreService {
     String uid,
   );
 
-  Future<void> likePost(String postId, String uid, List likes);
+  Future<void> likePost(
+    String postId,
+    String uid,
+    List likes,
+  );
+  Future<void> addComments(
+    String postId,
+    String uid,
+    String username,
+    String text,
+    String profilePic,
+  );
 }
 
 class FireStoreImplementation extends FirestoreService {
@@ -76,6 +87,33 @@ class FireStoreImplementation extends FirestoreService {
             "likes": FieldValue.arrayUnion([uid])
           },
         );
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<void> addComments(String postId, String uid, String username,
+      String text, String profilePic) async {
+    String commentsUid = const Uuid().v1();
+    try {
+      if (text.isNotEmpty) {
+        await _firebaseFirestore
+            .collection("post")
+            .doc(postId)
+            .collection("comments")
+            .doc(commentsUid)
+            .set({
+          "username": username,
+          "uid": uid,
+          "comment": text,
+          "profilepic": profilePic,
+          "commentid": commentsUid,
+          "date": DateTime.now(),
+        });
+      } else {
+        print("fill the fields");
       }
     } catch (e) {
       print(e.toString());
