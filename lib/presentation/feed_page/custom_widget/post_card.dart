@@ -19,6 +19,25 @@ class _PostCardState extends State<PostCard> {
   bool isLikeAnimating = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  void _moreSelected(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          children: [
+            SimpleDialogOption(
+              child: const Text("Delete"),
+              onPressed: () async {
+                sl<FirestoreService>().deletPost(widget.snap['postId']);
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,7 +61,9 @@ class _PostCardState extends State<PostCard> {
                 child: Container(),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _moreSelected(context);
+                },
                 icon: const Icon(Icons.more_vert),
               ),
             ],

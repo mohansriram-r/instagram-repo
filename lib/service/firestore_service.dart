@@ -26,6 +26,7 @@ abstract class FirestoreService {
     String text,
     String profilePic,
   );
+  Future<void> deletPost(String postId);
 }
 
 class FireStoreImplementation extends FirestoreService {
@@ -114,6 +115,17 @@ class FireStoreImplementation extends FirestoreService {
         });
       } else {
         print("fill the fields");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<void> deletPost(String postId) async {
+    try {
+      if (postId.isNotEmpty) {
+        await _firebaseFirestore.collection("post").doc(postId).delete();
       }
     } catch (e) {
       print(e.toString());
